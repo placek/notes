@@ -139,3 +139,142 @@ Moc robocza: $P_r$ to moc potrzebna do pobrania mocy z otoczenia.
 Moc swobodna: $ P_s = P_d - P_r $.
 Zatem: $ P = P_s + P_r + P_0 $.
 Współczynnik swobody: $ s = \frac{P_s}{P_d} = \frac{P_s}{P_r - P_s} $.
+
+
+Właściwości sterownicze s.a. to właściwości odgrywające rolę w procesach sterowniczych.
+Właściwości sztywne s.a. to właściwości niezależne od oddziaływań otoczenia.
+
+Charakter s.a. to zespół sztywnych właściwości sterowniczych.
+Sztywne właściwości sterownicze s.a. nazywane są parametrami charakteru.
+
+Poziom charakteru
+
+Poziom charakteru (N) jest to liczba skojarzonych elementów korelacyjnych s.a.
+
+Stan korelatora określają:
+liczba elementów korelacyjnych (E) w korelatorze;
+przewodności korelacyjne jednostkowe (g) substancji korelatora, tj. przewodności korelacyjne przypadające na jednostkę długości dróg łączących elementy korelacyjne;
+odstępy korelacyjne (k), tj. odległości między elementami korelacyjnymi.
+
+$ G = \frac{g}{k} $
+
+Liczbę elementów korelacyjnych (E) nazywamy pojemnością korelatora.
+Stosunek przyrostu przewodności do wywołującej go mocy korelacyjnej ($ \frac{\Delta g}{K} $) nazywamy rejestracyjnością korelatora.
+Stosunek średniego odstępu korelacyjnego do poszczególnych odstępów korelacyjnych($ \frac{k_{śr}}{k} $) nazywamy preferencyjnością korelatora.
+
+Konsekwencje:
+im większa jest pojemność korelatora, tym większa jest zdolność s.a. do wytwarzania wielu różnorodnych wyobrażeń (inteligencja);
+im większa jest rejestracyjność korelatora tym większa jest zdolność s.a. do wytwarzania wyobrażeń wszelkiego rodzaju (pojętność);
+im większa jest preferencyjność korelatora, tym większa jest zdolność s.a. do wyobrażeń szczególnego rodzaju (talent);
+
+Inteligencja, pojętność oraz talent to właściwości intelektualne s.a., natomiast ich zespół nazywamy intelektem (rozumem).
+
+Rodzaje intelektu:
+niska inteligencja, mała pojętność, brak talentu - debilizm
+wysoka inteligencja, mała pojętność, brak talentu - ogólna inteligencja
+niska inteligencja, duża pojętność, brak talentu - dobra pamięć
+niska inteligencja, mała pojętność, talent - pomysłowość
+wysoka inteligencja, duża pojętność, brak talentu - erudycja
+wysoka inteligencja, mała pojętność, talent - mozolne doskonalenie się
+niska inteligencja, duża pojętność, talent - intuicyjna celność
+wysoka inteligencja, duża pojętność, talent - genialność
+
+Dynamizm charakteru
+
+Moc dyspozycyjna ($P_d$) jest tym większa:
+im większa jest początkowa jakość tworzywa ($a_0$);
+im większa jest graniczna ilość tworzywa ($c_g$);
+im większa jest moc jednostkowa ($v$);
+im mniejszy jest współczynnik starzenia ($A$);
+im mniejsza jest stratność ($w$).
+
+Dynamizm charakteru ($D$) jest to logarytmiczny rozkład współczynnika dynamizmu: $ D = \log{\frac{C}{A}} $.
+
+Zakresy dynamizmu
+
+endodynamizm - dynamizm ujemny - $ D < 0 $, $ C < A $, $ n < 1 $;
+statyzm - dynamizm zerowy - $ D = 0 $, $ C = A $, $ n = 1 $;
+egzodynamizm - dynamizm dodatni - $ D > 0 $, $ C > A $, $ n > 1 $;
+
+Klasy dynamizmu
+
+Klasy dynamizmu są to uogólnione, rozmyte przedziały dynamizmu bazujące na zakresach dynamizmu:
+endodynamizm (A) - bardzo wyraźny dynamizm ujemny;
+endostatyzm (AB) - dość wyraźny dynamizm ujemny;
+statyzm (B) - dynamizm bliski zeru;
+egzostatyzm (BC) - dość wyraźny dynamizm dodatni;
+egzodynamizm (C) - bardzo wyraźny dynamizm dodatni;
+
+Przejawy dynamizmu charakteru
+
+TODO (tabela)
+
+Szerokość charakteru
+
+Dynamizm charakteru powiązany jest z działaniem homeostatu:
+homeostat reaguje, gdy wrażenie (wraz ze wzmacniającą je refleksją) jest niezgodne z równowagą funkcyjną homeostatu - czyli gdy wrażenie wywoła sytuację niezgodną z postulatami homeostatu - niepożądaną;
+w sytuacji pożądanej wrażenie może co najwyżej wywołać aprobatę decyzji, gdyż nie następuje odpływ mocy korelacyjnej do homeostatu (lub jest on niewielki);
+"czułość" homeostatu na przypływ mocy korelacyjnej i wzrost potencjału perturbacyjnego określony jest przez właściwości fizyczne homeostatu - a zatem przez charakter, a w szczególności jego dynamizm;
+
+Dynamizm graniczny i nieprzekraczalny ("czułość" homeostatu):
+wraz ze wzrostem potencjału perturbacyjnego $V_p$ (w wyniku wystąpienia wrażenia bądź refleksji) po przekroczeniu potencjału nieprzekraczalnego $V_{pn}$ homeostat zaczyna reagować;
+reakcja homeostatu ma na celu zmniejszenie potencjału perturbacyjnego $V_p$ poprzez wywołanie motywacji, której skutkiem jest działanie mające na celu stworzenie sytuacji zgodnej z dynamizmem s.a.;
+wraz z malejącym potencjałem perturbacyjnym $V_p$ po przekroczeniu potencjału granicznego $V_{pg}$ homeostat przestaje reagować;
+$V_{pn} > V_{pg}$
+dynamizmem granicznym nazywamy takie wartości dynamizmu, dla których odpowiadające im wrażenia i refleksje nie wywołują wzrostu potencjału perturbacyjnego ponad wartość $V_{pg};
+dynamizmem nieprzekraczalnym nazywamy takie wartości dynamizmu, dla których odpowiadające im wrażenia i refleksje nie wywołują wzrostu potencjału perturbacyjnego ponad wartość $V_{pn};
+
+Tolerancja ($T$) jest to różnica między dynamizmami granicznymi charakteru s.a.
+Podatność ($M$) to różnica między dynamizmem nieprzekraczalnym, a najbliższym dynamizmem granicznym zakresu dynamizmu charakteru s.a.
+Szerokość charakteru - $ L = 2 * M + T $.
+
+Pojęcia ścisłe
+
+Obietnica
+
+Intencją nazywamy wolę autonomu do podjęcia konkretnych decyzji w celu dokonania w przyszłości pewnego premedytowanego działania.
+Działania te nazywane są długiem. Wykonanie tych działań nazywane jest egzekucją długu.
+
+Obietnicą nazywamy informacje wydawane przez autonom, których treścią są intencje tego autonomu.
+
+Spełnieniem (dotrzymaniem) obietnicy nazywamy egzekucję długu.
+Złamaniem (nie dotrzymaniem) obietnicy nazywamy brak egzekucji długu.
+
+Informowanie, którego efektem jest obietnica, nazywamy zobowiązaniem. Zobowiązanie jest równoznaczne ze świadomym utworzeniem toru sterowniczego pomiędzy autonomami: dłużnikiem (autonom obiecujący) i wierzycielem (autonom, będący odbiorcą obietnicy).
+
+Umowa
+
+Umową nazywamy wzajemne zobowiązania dwóch autonomów w sytuacji bezkonfliktowej pozytywnej.
+Treścią umowy nazywamy obietnice, będące przedmiotem zobowiązania.
+
+Kontrahentem nazywamy dowolną stronę umowy.
+Dotrzymanie umowy (wywiązanie się z umowy) to spełnienie obietnic, będących składowymi treści umowy. Dotrzymanie umowy pociąga za sobą utrzymanie sytuacji bezkonfliktowej pozytywnej.
+Świadek to autonom nie będący kontrahentem, potwierdzający treść i pozytywną bezkonfliktowość relacji w umowie pomiędzy kontrahentami.
+
+Umowa i rozterki
+
+Rozterkę pomiędzy motywacją dążącą do dotrzymania umowy a motywacją dążącą do jej niedotrzymania nazywamy dylematem itycznym (ηθος - usposobienie).
+Dylemat ityczny ma wszystkie znamiona tzw. dylematu więźnia - jest z nim tożsamy (dylemat więźnia, zaufanie i strategie dylematu: http://ncase.me/trust/).
+
+Rezolucja to osąd nad dylematem itycznym.
+
+Zbór wrażeń i refleksji autonomu oddziaływających na rezolucję nazywamy przesłankami. Przesłanki dzielimy na:
+zewnętrzne - wrażenia;
+wewnętrzne - refleksje;
+
+Rezolucję wzmacniającą motywację, której efektem jest wywiązanie się z umowy nazywamy słuszną.
+
+Korektą dla dylematu itycznego jest kara. Kara jest to zestaw bodźców skutkujących pojawieniem się słusznej rezolucji. Bodźce te wywołują silną awersję decyzji niedotrzymania umowy oraz silną aprobatę decyzji dotrzymania umowy.
+
+Sprawiedliwość
+
+Sprawiedliwością nazywamy przeświadczenie autonomu skutkujące wywoływaniem słusznych rezolucji u siebie i u innych autonomów.
+Zatem sprawiedliwość to:
+dążność autonomu do dotrzymywania umów,
+korygowanie motywacji innych autonomów w celu dotrzymywania umów poprzez stosowanie kar.
+
+"Iustitia est constans et perpetua voluntas suum cuique tribuendi." Ulpian Domicjusz
+
+Prawo
+
+Pactio facit ius inter partes.
