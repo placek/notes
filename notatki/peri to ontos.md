@@ -7,7 +7,7 @@ Mówił prawdę o sobie.
 Zachwycił mnie.
 Zrozumiałem, że istnieje.
 Skierowałem się ku niemu.
-Dlaczego jest? Z Boga istnieję.
+Dlaczego jest? Z Boga istnieje.
 Dlaczego jest jaki jest? Przez akt i możność.
 Będę zatem bronić bytu, a nie filozofii.
 
@@ -42,7 +42,7 @@ epamunw de tw onti, ouk th filosofia.
 ἐν τούτῳ οὔδεν μετέβαλεν, πολλά ἐν ἐμοῖ.
 ἂλλον ἦν ἢ ταύτα, ἃ οἶδα. μοι ἐφαίνετο ὡς ὅλον. τὴν ἀλήθειαν περὶ ἑαυτοῦ ἔλεγεν.
 ἐκήλησέ με. ἔμαθον τοῦτο εἶναι. ἐτρεψάμην ἐπὶ τοῦτο.
-διὰ τί εἶ; ἐκ θεοῦ ὑπάρχω. διὰ τί εἶ τοιοῦτο εἶ; διὰ τῆς ἐνεργείας καὶ τῆς δυνάμεως.
+διὰ τί εἶ; ἐκ θεοῦ ὑπάρχει. διὰ τί εἶ τοιοῦτο εἶ; διὰ τῆς ἐνεργείας καὶ τῆς δυνάμεως.
 φυλάξω τὸ ὂν οὐδὲ τὴν φιλιοσοφίαν.
 
 *tw=| o)/nti a)ntebo/lhsa.
@@ -54,6 +54,6 @@ epamunw de tw onti, ouk th filosofia.
 *e)kh/lhse/ me.
 *e)/maqon tou=to ei)=nai.
 *e)treya/mhn e)pi\ tou=to.
-*dia\ ti/ ei)=; *e)k qeou= u(pa/rxw.
+*dia\ ti/ ei)=; *e)k qeou= u(pa/rxei.
 *dia\ ti/ ei)= toiou=to ei)=; *dia\ th=s e)nergei/as kai\ th=s duna/mews.
 *fula/cw to\ o)\n ou)de\ th\n filiosofi/an.
