@@ -23,7 +23,7 @@ error: build of '/nix/store/g4528bpk7x4i0s3h5zxa06q8543ih4h2-wrapped-ruby-future
 
 Add a function that rewrites the source URLs:
 
-```nix
+```
 add-credentials-to-source = host: credentials: { source, ... }@all:
   all // {
     source = source // {
@@ -34,7 +34,7 @@ add-credentials-to-source = host: credentials: { source, ... }@all:
 
 Tell bundlerEnv which gems should be treated with additional care:
 
-```nix
+```
 # rubygems_credentials = "my_user:ghp_CMSDfghSDFGncvjui92352evs1234twevs92";
 rubygems_credentials = builtins.getEnv "BUNDLE_RUBYGEMS__PKG__GITHUB__COM";
 …
@@ -65,7 +65,7 @@ See 'docker load --help'.
 
 Add `ignoreCollisions` option to the bundlerEnv section:
 
-```nix
+```
 gems = pkgs.bundlerEnv {
   …
   ignoreCollisions = true;
@@ -73,6 +73,33 @@ gems = pkgs.bundlerEnv {
 ```
 
 ## dockerTools.buildImage
+
+### copyToRoot requires kvm to be provided
+
+#### Example
+
+```
+building '/nix/store/i2bfn81lz8fp3df9n4sl2wxp3jbmj8wq-run-as-root.sh.drv'...
+building '/nix/store/plsvzrn7c7h5n6vy6qr763am7anrm3lb-vm-run-stage2.drv'...
+building '/nix/store/a5ywb47s9qq8drv33h4mil4mdfhlp4n0-vm-run.drv'...
+error: a 'x86_64-linux' with features {kvm} is required to build '/nix/store/2h2sb90zii9zlj5skfh04synwlf4g55q-docker-layer-futurelearn-image.drv', but I am a 'x86_64-linux' with features {benchmark, big-parallel, nixos-test, uid-range}
+flag needs an argument: 'i' in -i
+See 'docker load --help'.
+```
+
+#### Solution
+
+Add this line to the end of `/etc/nix/nix.conf`:
+
+```
+system-features = nixos-test benchmark big-parallel kvm
+```
+
+and restart nix-daemon:
+
+```
+sudo systemctl restart nix-daemon
+```
 
 ### Building image fails after suggesting to little space
 
