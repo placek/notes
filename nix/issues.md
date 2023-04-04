@@ -1,4 +1,10 @@
-# nix issues
+---
+title: Nix issues & solutions
+category: nix
+description: The issues I came into so far and resoved them during building the futurelearn environment.
+tags: [nix, bundlerEnv, dockerTools, buildImage]
+---
+# Nix issues & solutions
 
 ## bundlerEnv
 
