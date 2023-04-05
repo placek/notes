@@ -1,2 +1,5 @@
 [book]
 title = "My second brain"
+
+[output.html]
+default-theme = "rust"
