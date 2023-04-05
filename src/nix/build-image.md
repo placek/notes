@@ -1,6 +1,44 @@
-# dockerTools.buildImage
+# Building docker image with nix
 
-## copyToRoot requires kvm to be provided
+## Basic usage
+
+```nix
+pkgs.dockerTools.buildImage {
+  name = "image-name";
+  tag = "image-tag";
+    copyToRoot = [
+      pkgs.dockerTools.caCertificates # possibility to use openssl to make SSL requests
+      pkgs.busybox # shell and some tools
+      pkgs.git # git to fetch yarn sources
+      …
+
+      (pkgs.writeShellScriptBin "some-executable-script" (builtins.readFile ./script-source))
+
+      (pkgs.writeTextDir "home/user/dest-dir/dest-file-name" ''
+        content of file in location
+      '')
+    ];
+    runAsRoot = ''
+        #!${pkgs.runtimeShell}
+        # shadowSetup allows to use /etc/passwd and /etc/group
+        ${pkgs.dockerTools.shadowSetup}
+        some script
+      '';
+    config = {
+      WorkingDir = "/app";
+      User = "dev";
+    };
+  };
+```
+
+* [Docker image spec options](https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions)
+* [nixpkgs.dockertools](http://ryantm.github.io/nixpkgs/builders/images/dockertools/)
+
+## runAsRoot requires kvm to be provided
+
+To alter the contents of the docker image sometimes it's required to run some scripts.
+
+The `runAsRoot` option allows us to define such a script. But there's a catch! We need to run it in a virtualized environment while building image. By default kvm is disabled in scope of nix, so we need to ad it to system features.
 
 ### Example
 
@@ -28,6 +66,9 @@ sudo systemctl restart nix-daemon
 ```
 
 ## Building image fails after suggesting to little space
+
+To build an image there is a need of having a runtime user-space at enough capacity.
+Since normally it's a tempfs we cen resize it on demand when image is big enough,
 
 ### Example
 
