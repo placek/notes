@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Building ruby environment with bundler - My second brain</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../nix/package-pinning.html"><strong aria-hidden="true">1.</strong> Pinning</a></li><li class="chapter-item expanded "><a href="../nix/bundler-env.html" class="active"><strong aria-hidden="true">2.</strong> Building ruby environment with bundler</a></li><li class="chapter-item expanded "><a href="../nix/build-image.html"><strong aria-hidden="true">3.</strong> Building docker images</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My second brain</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ruby"><a class="header" href="#ruby">Ruby</a></h1>
+<h2 id="using-ruby"><a class="header" href="#using-ruby">Using Ruby</a></h2>
+<p>Several versions of Ruby interpreters are available on Nix, as well as over 250 gems and many applications written in Ruby. The attribute <code>ruby</code> refers to the default Ruby interpreter, which is currently MRI 2.6. It's also possible to refer to specific versions, e.g. <code>ruby_2_y</code>, <code>jruby</code>, or <code>mruby</code>.</p>
+<p>In the Nixpkgs tree, Ruby packages can be found throughout, depending on what they do, and are called from the main package set. Ruby gems, however are separate sets, and there's one default set for each interpreter (currently MRI only).</p>
+<p>There are two main approaches for using Ruby with gems. One is to use a specifically locked <code>Gemfile</code> for an application that has very strict dependencies. The other is to depend on the common gems, which we'll explain further down, and rely on them being updated regularly.</p>
+<p>The interpreters have common attributes, namely <code>gems</code>, and <code>withPackages</code>. So you can refer to <code>ruby.gems.nokogiri</code>, or <code>ruby_2_7.gems.nokogiri</code> to get the Nokogiri gem already compiled and ready to use.</p>
+<p>Since not all gems have executables like <code>nokogiri</code>, it's usually more convenient to use the <code>withPackages</code> function like this: <code>ruby.withPackages (p: with p; [ nokogiri ])</code>. This will also make sure that the Ruby in your environment will be able to find the gem and it can be used in your Ruby code (for example via <code>ruby</code> or <code>irb</code> executables) via <code>require &quot;nokogiri&quot;</code> as usual.</p>
+<h3 id="temporary-ruby-environment-with-nix-shell"><a class="header" href="#temporary-ruby-environment-with-nix-shell">Temporary Ruby environment with <code>nix-shell</code></a></h3>
+<p>Rather than having a single Ruby environment shared by all Ruby development projects on a system, Nix allows you to create separate environments per project. <code>nix-shell</code> gives you the possibility to temporarily load another environment akin to a combined <code>chruby</code> or <code>rvm</code> and <code>bundle exec</code>.</p>
+<p>There are two methods for loading a shell with Ruby packages. The first and recommended method is to create an environment with <code>ruby.withPackages</code> and load that.</p>
+<pre><code>$ nix-shell -p &quot;ruby.withPackages (ps: with ps; [ nokogiri pry ])&quot;
+</code></pre>
+<p>The other method, which is not recommended, is to create an environment and list all the packages directly.</p>
+<pre><code>$ nix-shell -p ruby.gems.nokogiri ruby.gems.pry
+</code></pre>
+<p>Again, it's possible to launch the interpreter from the shell. The Ruby interpreter has the attribute <code>gems</code> which contains all Ruby gems for that specific interpreter.</p>
+<h4 id="load-ruby-environment-from-nix-expression"><a class="header" href="#load-ruby-environment-from-nix-expression">Load Ruby environment from <code>.nix</code> expression</a></h4>
+<p>As explained in the Nix manual, <code>nix-shell</code> can also load an expression from a <code>.nix</code> file. Say we want to have Ruby 2.6, <code>nokogori</code>, and <code>pry</code>. Consider a <code>shell.nix</code> file with:</p>
+<pre><code>with import &lt;nixpkgs&gt; {};
+ruby.withPackages (ps: with ps; [ nokogiri pry ])
+</code></pre>
+<p>What's happening here?</p>
+<ol>
+<li>We begin with importing the Nix Packages collections. <code>import &lt;nixpkgs&gt;</code> imports the <code>&lt;nixpkgs&gt;</code> function, <code>{}</code> calls it and the <code>with</code> statement brings all attributes of <code>nixpkgs</code> in the local scope. These attributes form the main package set.</li>
+<li>Then we create a Ruby environment with the <code>withPackages</code> function.</li>
+<li>The <code>withPackages</code> function expects us to provide a function as an argument that takes the set of all ruby gems and returns a list of packages to include in the environment. Here, we select the packages <code>nokogiri</code> and <code>pry</code> from the package set.</li>
+</ol>
+<h4 id="execute-command-with---run"><a class="header" href="#execute-command-with---run">Execute command with <code>--run</code></a></h4>
+<p>A convenient flag for <code>nix-shell</code> is <code>--run</code>. It executes a command in the <code>nix-shell</code>. We can e.g. directly open a <code>pry</code> REPL:</p>
+<pre><code>$ nix-shell -p &quot;ruby.withPackages (ps: with ps; [ nokogiri pry ])&quot; --run &quot;pry&quot;
+</code></pre>
+<p>Or immediately require <code>nokogiri</code> in pry:</p>
+<pre><code>$ nix-shell -p &quot;ruby.withPackages (ps: with ps; [ nokogiri pry ])&quot; --run &quot;pry -rnokogiri&quot;
+</code></pre>
+<p>Or run a script using this environment:</p>
+<pre><code>$ nix-shell -p &quot;ruby.withPackages (ps: with ps; [ nokogiri pry ])&quot; --run &quot;ruby example.rb&quot;
+</code></pre>
+<h4 id="using-nix-shell-as-shebang"><a class="header" href="#using-nix-shell-as-shebang">Using <code>nix-shell</code> as shebang</a></h4>
+<p>In fact, for the last case, there is a more convenient method. You can add a <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> to your script specifying which dependencies <code>nix-shell</code> needs. With the following shebang, you can just execute <code>./example.rb</code>, and it will run with all dependencies.</p>
+<pre><code class="language-ruby">#! /usr/bin/env nix-shell
+#! nix-shell -i ruby -p &quot;ruby.withPackages (ps: with ps; [ nokogiri rest-client ])&quot;
+
+require 'nokogiri'
+require 'rest-client'
+
+body = RestClient.get('http://example.com').body
+puts Nokogiri::HTML(body).at('h1').text
+</code></pre>
+<h2 id="developing-with-ruby"><a class="header" href="#developing-with-ruby">Developing with Ruby</a></h2>
+<h3 id="using-an-existing-gemfile"><a class="header" href="#using-an-existing-gemfile">Using an existing Gemfile</a></h3>
+<p>In most cases, you'll already have a <code>Gemfile.lock</code> listing all your dependencies. This can be used to generate a <code>gemset.nix</code> which is used to fetch the gems and combine them into a single environment. The reason why you need to have a separate file for this, is that Nix requires you to have a checksum for each input to your build. Since the <code>Gemfile.lock</code> that <code>bundler</code> generates doesn't provide us with checksums, we have to first download each gem, calculate its SHA256, and store it in this separate file.</p>
+<p>So the steps from having just a <code>Gemfile</code> to a <code>gemset.nix</code> are:</p>
+<pre><code>$ bundle lock
+$ bundix
+</code></pre>
+<p>If you already have a <code>Gemfile.lock</code>, you can simply run <code>bundix</code> and it will work the same.</p>
+<p>To update the gems in your <code>Gemfile.lock</code>, you may use the <code>bundix -l</code> flag, which will create a new <code>Gemfile.lock</code> in case the <code>Gemfile</code> has a more recent time of modification.</p>
+<p>Once the <code>gemset.nix</code> is generated, it can be used in a <code>bundlerEnv</code> derivation. Here is an example you could use for your <code>shell.nix</code>:</p>
+<pre><code># ...
+let
+  gems = bundlerEnv {
+    name = &quot;gems-for-some-project&quot;;
+    gemdir = ./.;
+  };
+in mkShell { packages = [ gems gems.wrappedRuby ]; }
+</code></pre>
+<p>With this file in your directory, you can run <code>nix-shell</code> to build and use the gems. The important parts here are <code>bundlerEnv</code> and <code>wrappedRuby</code>.</p>
+<p>The <code>bundlerEnv</code> is a wrapper over all the gems in your gemset. This means that all the <code>/lib</code> and <code>/bin</code> directories will be available, and the executables of all gems (even of indirect dependencies) will end up in your <code>$PATH</code>. The <code>wrappedRuby</code> provides you with all executables that come with Ruby itself, but wrapped so they can easily find the gems in your gemset.</p>
+<p>One common issue that you might have is that you have Ruby 2.6, but also <code>bundler</code> in your gemset. That leads to a conflict for <code>/bin/bundle</code> and <code>/bin/bundler</code>. You can resolve this by wrapping either your Ruby or your gems in a <code>lowPrio</code> call. So in order to give the <code>bundler</code> from your gemset priority, it would be used like this:</p>
+<pre><code># ...
+mkShell { buildInputs = [ gems (lowPrio gems.wrappedRuby) ]; }
+</code></pre>
+<h3 id="gem-specific-configurations-and-workarounds"><a class="header" href="#gem-specific-configurations-and-workarounds">Gem-specific configurations and workarounds</a></h3>
+<p>In some cases, especially if the gem has native extensions, you might need to modify the way the gem is built.</p>
+<p>This is done via a common configuration file that includes all of the workarounds for each gem.</p>
+<p>This file lives at <code>/pkgs/development/ruby-modules/gem-config/default.nix</code>, since it already contains a lot of entries, it should be pretty easy to add the modifications you need for your needs.</p>
+<p>In the meanwhile, or if the modification is for a private gem, you can also add the configuration to only your own environment.</p>
+<p>Two places that allow this modification are the <code>ruby</code> derivation, or <code>bundlerEnv</code>.</p>
+<p>Here's the <code>ruby</code> one:</p>
+<pre><code>{ pg_version ? &quot;10&quot;, pkgs ? import &lt;nixpkgs&gt; { } }:
+let
+  myRuby = pkgs.ruby.override {
+    defaultGemConfig = pkgs.defaultGemConfig // {
+      pg = attrs: {
+        buildFlags =
+        [ &quot;--with-pg-config=${pkgs.&quot;postgresql_${pg_version}&quot;}/bin/pg_config&quot; ];
+      };
+    };
+  };
+in myRuby.withPackages (ps: with ps; [ pg ])
+</code></pre>
+<p>And an example with <code>bundlerEnv</code>:</p>
+<pre><code>{ pg_version ? &quot;10&quot;, pkgs ? import &lt;nixpkgs&gt; { } }:
+let
+  gems = pkgs.bundlerEnv {
+    name = &quot;gems-for-some-project&quot;;
+    gemdir = ./.;
+    gemConfig = pkgs.defaultGemConfig // {
+      pg = attrs: {
+        buildFlags =
+        [ &quot;--with-pg-config=${pkgs.&quot;postgresql_${pg_version}&quot;}/bin/pg_config&quot; ];
+      };
+    };
+  };
+in mkShell { buildInputs = [ gems gems.wrappedRuby ]; }
+</code></pre>
+<p>And finally via overlays:</p>
+<pre><code>{ pg_version ? &quot;10&quot; }:
+let
+  pkgs = import &lt;nixpkgs&gt; {
+    overlays = [
+      (self: super: {
+        defaultGemConfig = super.defaultGemConfig // {
+          pg = attrs: {
+            buildFlags = [
+              &quot;--with-pg-config=${
+                pkgs.&quot;postgresql_${pg_version}&quot;
+              }/bin/pg_config&quot;
+            ];
+          };
+        };
+      })
+    ];
+  };
+in pkgs.ruby.withPackages (ps: with ps; [ pg ])
+</code></pre>
+<p>Then we can get whichever postgresql version we desire and the <code>pg</code> gem will always reference it correctly:</p>
+<pre><code>$ nix-shell --argstr pg_version 9_4 --run 'ruby -rpg -e &quot;puts PG.library_version&quot;'
+90421
+
+$ nix-shell --run 'ruby -rpg -e &quot;puts PG.library_version&quot;'
+100007
+</code></pre>
+<p>Of course for this use-case one could also use overlays since the configuration for <code>pg</code> depends on the <code>postgresql</code> alias, but for demonstration purposes this has to suffice.</p>
+<h3 id="platform-specific-gems"><a class="header" href="#platform-specific-gems">Platform-specific gems</a></h3>
+<p>Right now, bundix has some issues with pre-built, platform-specific gems: <a href="https://github.com/nix-community/bundix/pull/68">bundix PR #68</a>.
+Until this is solved, you can tell bundler to not use platform-specific gems and instead build them from source each time:</p>
+<ul>
+<li>globally (will be set in <code>~/.config/.bundle/config</code>):</li>
+</ul>
+<pre><code>$ bundle config set force_ruby_platform true
+</code></pre>
+<ul>
+<li>locally (will be set in <code>&lt;project-root&gt;/.bundle/config</code>):</li>
+</ul>
+<pre><code>$ bundle config set --local force_ruby_platform true
+</code></pre>
+<h3 id="adding-a-gem-to-the-default-gemset"><a class="header" href="#adding-a-gem-to-the-default-gemset">Adding a gem to the default gemset</a></h3>
+<p>Now that you know how to get a working Ruby environment with Nix, it's time to go forward and start actually developing with Ruby. We will first have a look at how Ruby gems are packaged on Nix. Then, we will look at how you can use development mode with your code.</p>
+<p>All gems in the standard set are automatically generated from a single <code>Gemfile</code>. The dependency resolution is done with <code>bundler</code> and makes it more likely that all gems are compatible to each other.</p>
+<p>In order to add a new gem to nixpkgs, you can put it into the <code>/pkgs/development/ruby-modules/with-packages/Gemfile</code> and run <code>./maintainers/scripts/update-ruby-packages</code>.</p>
+<p>To test that it works, you can then try using the gem with:</p>
+<pre><code>NIX_PATH=nixpkgs=$PWD nix-shell -p &quot;ruby.withPackages (ps: with ps; [ name-of-your-gem ])&quot;
+</code></pre>
+<h3 id="packaging-applications"><a class="header" href="#packaging-applications">Packaging applications</a></h3>
+<p>A common task is to add a ruby executable to nixpkgs, popular examples would be <code>chef</code>, <code>jekyll</code>, or <code>sass</code>. A good way to do that is to use the <code>bundlerApp</code> function, that allows you to make a package that only exposes the listed executables, otherwise the package may cause conflicts through common paths like <code>bin/rake</code> or <code>bin/bundler</code> that aren't meant to be used.</p>
+<p>The absolute easiest way to do that is to write a <code>Gemfile</code> along these lines:</p>
+<pre><code class="language-ruby">source 'https://rubygems.org' do
+  gem 'mdl'
+end
+</code></pre>
+<p>If you want to package a specific version, you can use the standard Gemfile syntax for that, e.g. <code>gem 'mdl', '0.5.0'</code>, but if you want the latest stable version anyway, it's easier to update by simply running the <code>bundle lock</code> and <code>bundix</code> steps again.</p>
+<p>Now you can also make a <code>default.nix</code> that looks like this:</p>
+<pre><code>{ bundlerApp }:
+
+bundlerApp {
+  pname = &quot;mdl&quot;;
+  gemdir = ./.;
+  exes = [ &quot;mdl&quot; ];
+}
+</code></pre>
+<p>All that's left to do is to generate the corresponding <code>Gemfile.lock</code> and <code>gemset.nix</code> as described above in the <code>Using an existing Gemfile</code> section.</p>
+<h4 id="packaging-executables-that-require-wrapping"><a class="header" href="#packaging-executables-that-require-wrapping">Packaging executables that require wrapping</a></h4>
+<p>Sometimes your app will depend on other executables at runtime, and tries to find it through the <code>PATH</code> environment variable.</p>
+<p>In this case, you can provide a <code>postBuild</code> hook to <code>bundlerApp</code> that wraps the gem in another script that prefixes the <code>PATH</code>.</p>
+<p>Of course you could also make a custom <code>gemConfig</code> if you know exactly how to patch it, but it's usually much easier to maintain with a simple wrapper so the patch doesn't have to be adjusted for each version.</p>
+<p>Here's another example:</p>
+<pre><code>{ lib, bundlerApp, makeWrapper, git, gnutar, gzip }:
+
+bundlerApp {
+  pname = &quot;r10k&quot;;
+  gemdir = ./.;
+  exes = [ &quot;r10k&quot; ];
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  postBuild = ''
+    wrapProgram $out/bin/r10k --prefix PATH : ${lib.makeBinPath [ git gnutar gzip ]}
+  '';
+}
+</code></pre>
+<h1 id="bundlerenv-known-issues"><a class="header" href="#bundlerenv-known-issues">bundlerEnv known issues</a></h1>
+<h2 id="private-gems-repositories-are-not-reachable"><a class="header" href="#private-gems-repositories-are-not-reachable">Private gems repositories are not reachable</a></h2>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<pre><code>trying https://rubygems.pkg.github.com/futurelearn/gems/geoip_fixtures-0.2.0.gem
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (22) The requested URL returned error: 401
+error: cannot download geoip_fixtures-0.2.0.gem from any mirror
+error: builder for '/nix/store/0gx7xbq8bxz6hxa0jr182bq8sx2d95g5-geoip_fixtures-0.2.0.gem.drv' failed with exit code 1
+error: 1 dependencies of derivation '/nix/store/sxkf9a9m5zs364kx1f1kbrn078m5b4lk-ruby2.7.7-geoip_fixtures-0.2.0.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/ixbc5szzbrxbb7jgk9cqfv5sx2wlbw2c-futurelearn-gems.drv' failed to build
+error: build of '/nix/store/g4528bpk7x4i0s3h5zxa06q8543ih4h2-wrapped-ruby-futurelearn-gems.drv', '/nix/store/ixbc5szzbrxbb7jgk9cqfv5sx2wlbw2c-futurelearn-gems.drv' failed
+</code></pre>
+<h3 id="solution"><a class="header" href="#solution">Solution</a></h3>
+<p>Add a function that rewrites the source URLs:</p>
+<pre><code>add-credentials-to-source = host: credentials: { source, ... }@all:
+  all // {
+    source = source // {
+      remotes = builtins.map (url: builtins.replaceStrings [ &quot;https://${host}&quot; ] [ &quot;https://${credentials}@${host}&quot; ] url) source.remotes;
+    };
+  };
+</code></pre>
+<p>Tell bundlerEnv which gems should be treated with additional care:</p>
+<pre><code># rubygems_credentials = &quot;my_user:ghp_CMSDfghSDFGncvjui92352evs1234twevs92&quot;;
+rubygems_credentials = builtins.getEnv &quot;BUNDLE_RUBYGEMS__PKG__GITHUB__COM&quot;;
+…
+gems = pkgs.bundlerEnv {
+  …
+  gemConfig = pkgs.defaultGemConfig // {
+    geoip_fixtures = add-credentials-to-source &quot;rubygems.pkg.github.com&quot; rubygems_credentials;
+    …
+  };
+};
+</code></pre>
+<h2 id="collision-between-gems"><a class="header" href="#collision-between-gems">Collision between gems</a></h2>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<pre><code>building '/nix/store/7ar23qkbvqxj1q1ykffmxzh5vmhi0cqk-futurelearn-gems.drv'...
+error: collision between `/nix/store/hrvb38yn7wi480ylcvqxvlaxwn4f0z6d-ruby2.7.7-opensearch-persistence-1.0.0/lib/ruby/gems/2.7.0/cache/bundler/git/opensearch-rails-6b8987d107b0da869cc66cfd21a6a6e1364a074d/index' and `/nix/store/pxqns9mql0g2rfz6ihc71c5ylm6kn7hf-ruby2.7.7-opensearch-model-1.0.0/lib/ruby/gems/2.7.0/cache/bundler/git/opensearch-rails-6b8987d107b0da869cc66cfd21a6a6e1364a074d/index'
+error: builder for '/nix/store/7ar23qkbvqxj1q1ykffmxzh5vmhi0cqk-futurelearn-gems.drv' failed with exit code 255
+error: 1 dependencies of derivation '/nix/store/4mb3iar5j68d2rd74ibfz861bmfqws2p-docker-layer-futurelearn-image.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/35hsn9ir4s3zkkkhpc16j5mf0pllmlld-docker-image-futurelearn-image.tar.gz.drv' failed to build
+flag needs an argument: 'i' in -i
+See 'docker load --help'.
+</code></pre>
+<h3 id="solution-1"><a class="header" href="#solution-1">Solution</a></h3>
+<p>Add <code>ignoreCollisions</code> option to the bundlerEnv section:</p>
+<pre><code>gems = pkgs.bundlerEnv {
+  …
+  ignoreCollisions = true;
+};
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../nix/package-pinning.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../nix/build-image.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../nix/package-pinning.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../nix/build-image.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
